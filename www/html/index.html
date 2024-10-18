@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  margin-left: 200px;
+  background: black url("gilmore.jpg") no-repeat;
+}
+
+.center_div {
+  border: 1px solid gray;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  background-color: #d0f0f6;
+  text-align: left;
+  padding: 8px;
+}
+</style>
+</head>
+<body>
+
+<div class="center_div">
+  <h1>Welcome to apod proxy server!</h1>
+  <p>To obtain original apod data visit: <a href="https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY">NASA API</a></p>
+  <p>To get api doc withit swagger: <a href="http://localhost:8080/docs/index.html">Swagger</a></p>
+  <p>To obtain all proxy apod data visit: <a href="http://localhost:8080/get">http://localhost:8080/get</a></p>
+  <p>To obtain proxy apod data for spesific date: http://localhost:8080/get/:date</p>
+  <p>To obtain proxy image you can visit: http://localhost:8089/:date.jpg. Be werry, this option may not work due to unavailability of the original surcse</p>
+</div>
+
+</body>
+</html>

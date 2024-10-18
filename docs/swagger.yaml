@@ -1,0 +1,90 @@
+basePath: /
+definitions:
+  model.ImageInfoResponse:
+    properties:
+      copyright:
+        description: Copyright of the image
+        example: |2
+
+          Brennan Gilmore
+        type: string
+      date:
+        description: Date wnen image became apod
+        example: "2024-10-14"
+        type: string
+      explanation:
+        description: Explanation of the image
+        example: ' Go outside at sunset tonight and see a comet!  C/2023 A3 (Tsuchinshan–ATLAS)
+          has become visible...'
+        type: string
+      hdurl:
+        description: HD URL of the image (link to nasa website)
+        example: https://apod.nasa.gov/apod/image/2410/CometA3Dc_Gilmore_1080.jpg
+        type: string
+      media_type:
+        description: MediaType of the date provided
+        example: image
+        type: string
+      proxy_url:
+        description: URL of the stored image (proxy image)
+        example: http://localhost:8009/2024-10-14.jpg
+        type: string
+      service_version:
+        description: Nasa service version
+        example: v1
+        type: string
+      title:
+        description: Title of the image provided
+        example: Comet Tsuchinshan-ATLAS Over the Lincoln Memorial
+        type: string
+      url:
+        description: URL of the image (link to nasa website)
+        example: https://apod.nasa.gov/apod/image/2410/CometA3Dc_Gilmore_1080.jpg
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a server for storing NASA apod data & images.
+  title: APOD Serevr
+  version: "1.0"
+paths:
+  /get:
+    get:
+      description: Gets all recorded Data
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: image infos
+          schema:
+            items:
+              $ref: '#/definitions/model.ImageInfoResponse'
+            type: array
+        "404":
+          description: error message
+          schema:
+            type: string
+      summary: Get All Images Info
+      tags:
+      - imageInfo
+  /get/{date}:
+    get:
+      description: Gets an image info on specific date
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: image info
+          schema:
+            $ref: '#/definitions/model.ImageInfoResponse'
+        "404":
+          description: error message
+          schema:
+            type: string
+      summary: Get Image Info
+      tags:
+      - imageInfo
+schemes:
+- http
+swagger: "2.0"
