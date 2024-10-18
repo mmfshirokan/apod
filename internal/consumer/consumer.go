@@ -71,7 +71,7 @@ func (c *Consumer) Consume(ctx context.Context, target, key string) {
 		if err = c.img.Add(iResp.Body.(io.Reader), ii.Date); err != nil {
 			log.Error("Can't Add in DB: ", err)
 		} else {
-			log.Info("Data successfully saved on ", time.Now().UTC())
+			log.Info("Image added on ", time.Now().UTC())
 		}
 		defer iResp.Body.Close()
 	}
