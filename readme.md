@@ -1,5 +1,39 @@
-**Начало работы**
+### Начало работы:
 Для запуска используете команду __make dc__. После этого, для более подробных инструкций, проследуйте по адресу __http://localhost:8089__
+
+**Makefile:**
+- __dc__: Поднимает все необходимое в докере с помощью команды docker-compose up.
+- __swag gen__: генерирует swagger документацию и выводит генерируемые файлы в паку docs. Также можно использовать для обновления документации. 
+- __mock gen handlers__: генерирует моки для пакета handlers.
+- __test__: запускает тесты.
+- __lint__: запускает выбранные линты.
+
+**Environment:**
+Структура в которой хранятся env переменные находиться в __config.go__ в ./internal/config. Работа с переменными производится с помощью пакета __github.com/caarlos0/env__.
+
+**Endpoints:**
+- __http://localhost:8080/get/:date__: получение метаданных изображения согласно дате.
+- __http://localhost:8080/get__: получение метаданных всех изображений.
+- __http://localhost:8080/docs/index.html__: документация swagger.
+- __http://localhost:8089/__: вводная страничка. 
+- __http://localhost:8089/{date}.jpg__: получение изображения согласно дате.
+
+**Архетиектра проекта:** 
+За основу проекта взят __service layer pattern__,  который позволяет упорядочить и улучшить структуру проекта. 
+
+![](./uml.png)
+
+
+
+<!-- **Используемые пакеты:**
+	github.com/caarlos0/env/v11 v11.2.2
+	github.com/jackc/pgx/v5 v5.7.1
+	github.com/julienschmidt/httprouter v1.3.0
+	github.com/ory/dockertest v3.3.5+incompatible
+	github.com/sirupsen/logrus v1.9.3
+	github.com/stretchr/testify v1.9.0
+	github.com/swaggo/http-swagger v1.3.4
+	github.com/swaggo/swag v1.16.3 -->
 
 ## Задание 1. Сервис юного астролога
 
