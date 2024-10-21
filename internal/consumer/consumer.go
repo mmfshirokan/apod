@@ -56,7 +56,7 @@ func (c *Consumer) Consume(ctx context.Context, target, key string) {
 		}
 
 		// Creating Image request
-		iReq, err := http.NewRequest(http.MethodGet, target+"?api_key="+key, nil)
+		iReq, err := http.NewRequest(http.MethodGet, ii.Url, nil)
 		if err != nil {
 			log.Error("Wrong image http request: ", err)
 		}
