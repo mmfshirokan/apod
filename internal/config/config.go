@@ -9,7 +9,7 @@ type Config struct {
 	Target           string `env:"TARGET" envDefault:"https://api.nasa.gov/planetary/apod"`
 	ApiKey           string `env:"API_KEY" envDefault:"7mrYwiNGfVBzDgLEcGvsL3j88hRd57g9iHKLAFRg"`
 	PostgresURL      string `env:"POSTGRES_URL" envDefault:"postgres://user:password@postgres/db?sslmode=disable"`
-	ImageDestenation string `env:"IMAGE_DEST" envDefault:"/var/www/html"`
+	ImageDestenation string `env:"IMAGE_DEST" envDefault:"./www/html"`
 	NginxURL         string `env:"NGINX_PORT" envDefault:"http://localhost:8089/"`
 }
 
