@@ -37,7 +37,7 @@ func main() {
 
 	pgDB, err := pgxpool.New(ctx, cnf.PostgresURL)
 	if err != nil {
-		log.Fatal("Fatal MySQl connection error: ", err)
+		log.Fatal("Fatal Postgresql connection error: ", err)
 	}
 	defer pgDB.Close()
 

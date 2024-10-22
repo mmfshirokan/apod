@@ -53,32 +53,35 @@ func (c *Consumer) Consume(ctx context.Context, target, key string) {
 		// Adding image info
 		if err = c.inf.Add(ctx, ii); err != nil {
 			log.Error("Can't Add in DB: ", err)
+			return
 		}
 
 		// Creating Image request
 		iReq, err := http.NewRequest(http.MethodGet, ii.Url, nil)
 		if err != nil {
 			log.Error("Wrong image http request: ", err)
+			return
 		}
 
 		// Sending http request for image
 		iResp, err := http.DefaultClient.Do(iReq)
 		if err != nil {
 			log.Error("Can't obtain http response, uttempt failed: ", err)
+			return
 		}
 
 		// Adding image
 		if err = c.img.Add(iResp.Body.(io.Reader), ii.Date); err != nil {
 			log.Error("Can't Add in DB: ", err)
-		} else {
-			log.Info("Image added on ", time.Now().UTC())
 		}
 		defer iResp.Body.Close()
+
+		log.Info("Worker instance complete on:", time.Now().UTC())
 	}
 
 	reqAndSave()
 
-	tiker := time.NewTicker(tillNextDayUTC())
+	tiker := time.NewTicker(tillNextDayAST())
 
 	for {
 		select {
@@ -90,18 +93,23 @@ func (c *Consumer) Consume(ctx context.Context, target, key string) {
 		case <-tiker.C:
 			{
 				reqAndSave()
-				tiker.Reset(tillNextDayUTC())
+				tiker.Reset(tillNextDayAST())
 			}
 		}
 	}
 }
 
-func tillNextDayUTC() time.Duration {
+func tillNextDayAST() time.Duration {
+	location, err := time.LoadLocation("America/New_York")
+	if err != nil {
+		log.Fatal("Can't load location: ", err)
+	}
+
 	return time.Date(
 		time.Now().Year(),
 		time.Now().Month(),
 		time.Now().Day()+1,
 		0, 0, 1, 0,
-		time.UTC,
-	).Sub(time.Now().UTC())
+		location,
+	).Sub(time.Now().In(location))
 }
